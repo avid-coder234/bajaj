@@ -5,16 +5,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 👇 Replace with YOUR details
-const FULL_NAME = "aditya_dewangan"; // e.g., aditya_dewangan
-const DOB_DDMMYYYY = "23042004"; // e.g., 17091999
+
+const FULL_NAME = "aditya_dewangan"; 
+const DOB_DDMMYYYY = "23042004"; 
 const EMAIL = "imailaditya.dewangan@gmail.com";
 const ROLL = "22BCE1500";
 
 const isNumberStr = (s) => /^-?\d+$/.test(s);
 const isAlphaStr  = (s) => /^[A-Za-z]+$/.test(s);
 
-// Build alternating caps (start Upper) on a reversed char array
+
 function alternatingCapsReversed(letters) {
   const rev = letters.slice().reverse();
   return rev.map((ch, i) => (i % 2 === 0 ? ch.toUpperCase() : ch.toLowerCase())).join("");
@@ -47,7 +47,7 @@ app.post("/bfhl", (req, res) => {
     let letterChars = [];
 
     for (const token of data) {
-      const s = String(token); // normalize
+      const s = String(token); 
 
       if (isNumberStr(s)) {
         const n = parseInt(s, 10);
@@ -56,7 +56,7 @@ app.post("/bfhl", (req, res) => {
         else odd_numbers.push(String(n));
       } else if (isAlphaStr(s)) {
         alphabets.push(s.toUpperCase());
-        // collect all letters as characters in original order
+        
         for (const ch of s) if (/[A-Za-z]/.test(ch)) letterChars.push(ch);
       } else {
         special_characters.push(s);
@@ -74,7 +74,7 @@ app.post("/bfhl", (req, res) => {
       even_numbers,
       alphabets,
       special_characters,
-      sum: String(sum),          // sum as STRING
+      sum: String(sum),          
       concat_string
     });
   } catch (e) {
