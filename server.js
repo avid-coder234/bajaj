@@ -5,7 +5,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-
 const FULL_NAME = "aditya_dewangan"; 
 const DOB_DDMMYYYY = "23042004"; 
 const EMAIL = "imailaditya.dewangan@gmail.com";
@@ -14,11 +13,17 @@ const ROLL = "22BCE1500";
 const isNumberStr = (s) => /^-?\d+$/.test(s);
 const isAlphaStr  = (s) => /^[A-Za-z]+$/.test(s);
 
-
 function alternatingCapsReversed(letters) {
   const rev = letters.slice().reverse();
   return rev.map((ch, i) => (i % 2 === 0 ? ch.toUpperCase() : ch.toLowerCase())).join("");
 }
+
+app.get("/bfhl", (req, res) => {
+  res.json({
+    operation_code: 1,
+    message: "This is the BFHL API. Please send a POST request with JSON body to use it."
+  });
+});
 
 app.post("/bfhl", (req, res) => {
   try {
@@ -48,7 +53,6 @@ app.post("/bfhl", (req, res) => {
 
     for (const token of data) {
       const s = String(token); 
-
       if (isNumberStr(s)) {
         const n = parseInt(s, 10);
         sum += n;
@@ -56,7 +60,6 @@ app.post("/bfhl", (req, res) => {
         else odd_numbers.push(String(n));
       } else if (isAlphaStr(s)) {
         alphabets.push(s.toUpperCase());
-        
         for (const ch of s) if (/[A-Za-z]/.test(ch)) letterChars.push(ch);
       } else {
         special_characters.push(s);
